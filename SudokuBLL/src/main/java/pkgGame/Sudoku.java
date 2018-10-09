@@ -411,4 +411,49 @@ public class Sudoku extends LatinSquare {
 			ar[i] = a;
 		}
 	}
+	
+	private class Cell extends java.lang.Object {
+		
+		private int iCol;
+		private int iRow;
+		private java.util.ArrayList<java.lang.Integer> lstValidValues;
+		
+		public Cell(int iRow, int iCol) {
+			this.iRow = iRow;
+			this.iCol = iCol;
+		}
+		
+		public int getiRow() {
+			return iRow;
+		}
+		
+		public int getiCol() {
+			return iCol;
+		}
+		
+		public int hashCode() {
+			return 0;
+		}
+		
+		public boolean equals(java.lang.Object o) {
+			return false;
+		}
+		
+		public java.util.ArrayList<java.lang.Integer> getLstValidValues(){
+			return null;
+		}
+		
+		public void setlstValidValues(java.util.HashSet<java.lang.Integer> hsValidValues) {
+			
+		}
+		
+		public void ShuffleValidValues() {
+			
+		}
+		
+		public Sudoku.Cell GetNextCell(Sudoku.Cell c){
+			return null;
+		}
+		
+	}
 }
