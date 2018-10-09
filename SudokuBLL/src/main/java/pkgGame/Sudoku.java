@@ -2,7 +2,7 @@ package pkgGame;
 
 
 import java.security.SecureRandom;
-import java.util.Random;
+import java.util.*;
 
 import pkgHelper.LatinSquare;
 
@@ -432,15 +432,15 @@ public class Sudoku extends LatinSquare {
 		}
 		
 		public int hashCode() {
-			return 0;
+			return this.hashCode();
 		}
 		
 		public boolean equals(java.lang.Object o) {
-			return false;
+			return this.equals(o);
 		}
 		
 		public java.util.ArrayList<java.lang.Integer> getLstValidValues(){
-			return null;
+			return lstValidValues;
 		}
 		
 		public void setlstValidValues(java.util.HashSet<java.lang.Integer> hsValidValues) {
