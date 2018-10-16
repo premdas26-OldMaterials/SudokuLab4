@@ -286,6 +286,16 @@ public class Sudoku extends LatinSquare {
 		return true;
 	}
 
+	public boolean isValidValue(Cell c, int iValue) {
+		return this.isValidValue(c.iRow, c.iCol, iValue);
+	}
+	
+	public boolean isValidColumnValue(int iCol, int iValue) {
+		if (doesElementExist(super.getColumn(iCol),iValue)) {
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * PrintPuzzle This method will print the puzzle to the console (space between
 	 * columns, line break after row)
@@ -412,13 +422,30 @@ public class Sudoku extends LatinSquare {
 		}
 	}
 	
-	private class Cell extends java.lang.Object {
+	private boolean fillRemaining(Cell c) {
+		if (c == null) 
+			return true;
+		
+		for (int num: c.getLstValidValues()) {
+			if (isValidValue(c, num)) {
+				this.getPuzzle()[c.getiRow()][c.getiCol()] = num;
+				
+				if (fillRemaining(c.GetNextCell(c)))
+					return true;
+				this.getPuzzle()[c.getiRow()][c.getiCol()] = 0;
+			}
+		}
+		return false;
+	}
+	
+	private class Cell extends Object {
 		
 		private int iCol;
 		private int iRow;
-		private java.util.ArrayList<java.lang.Integer> lstValidValues;
+		private ArrayList<Integer> lstValidValues = new ArrayList<Integer>();
 		
 		public Cell(int iRow, int iCol) {
+			super();
 			this.iRow = iRow;
 			this.iCol = iCol;
 		}
@@ -432,23 +459,26 @@ public class Sudoku extends LatinSquare {
 		}
 		
 		public int hashCode() {
-			return this.hashCode();
+			return Objects.hash(iRow, iCol);
 		}
 		
-		public boolean equals(java.lang.Object o) {
-			return this.equals(o);
+		public boolean equals(Object o) {
+			if (o == this)
+				return true;
+			
+			else return false;
 		}
 		
-		public java.util.ArrayList<java.lang.Integer> getLstValidValues(){
+		public ArrayList<Integer> getLstValidValues(){
 			return lstValidValues;
 		}
 		
-		public void setlstValidValues(java.util.HashSet<java.lang.Integer> hsValidValues) {
-			
+		public void setlstValidValues(HashSet<Integer> hsValidValues) {
+			lstValidValues = new ArrayList<Integer>(hsValidValues);
 		}
 		
 		public void ShuffleValidValues() {
-			
+			Collections.shuffle(lstValidValues);
 		}
 		
 		public Sudoku.Cell GetNextCell(Sudoku.Cell c){
