@@ -66,6 +66,8 @@ public class Sudoku extends LatinSquare {
 		int[][] puzzle = new int[iSize][iSize];
 		super.setLatinSquare(puzzle);
 		FillDiagonalRegions();
+		
+		SetCells();		
 	}
 
 	/**
@@ -465,7 +467,7 @@ public class Sudoku extends LatinSquare {
 		return hsCellRange;
 	}
 	
-	private void setCells() {
+	private void SetCells() {
 		for(int i = 0; i<iSize;i++) {
 			for(int k = 0; k<iSize; k++) {
 				cells.put(Objects.hash(i,k), new Cell(i,k));
