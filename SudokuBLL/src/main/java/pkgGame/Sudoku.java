@@ -270,20 +270,14 @@ public class Sudoku extends LatinSquare {
 	 */
 	public boolean isValidValue(int iRow,int iCol,  int iValue) {
 		
-		if (doesElementExist(super.getRow(iRow),iValue))
+		if (isValidRowValue(iRow, iValue) 
+				&& isValidColumnValue(iCol, iValue) 
+				&& isValidRegionValue(iCol, iRow, iValue))
 		{
-			return false;
-		}
-		if (doesElementExist(super.getColumn(iCol),iValue))
-		{
-			return false;
-		}
-		if (doesElementExist(this.getRegion(iCol, iRow),iValue))
-		{
-			return false;
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 
 	public boolean isValidValue(Cell c, int iValue) {
@@ -292,6 +286,20 @@ public class Sudoku extends LatinSquare {
 	
 	public boolean isValidColumnValue(int iCol, int iValue) {
 		if (doesElementExist(super.getColumn(iCol),iValue)) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isValidRowValue(int iRow, int iValue) {
+		if (doesElementExist(super.getRow(iRow),iValue)) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isValidRegionValue(int iCol, int iRow, int iValue) {
+		if (doesElementExist(this.getRegion(iCol, iRow),iValue)) {
 			return false;
 		}
 		return true;
