@@ -465,6 +465,13 @@ public class Sudoku extends LatinSquare {
 		return hsCellRange;
 	}
 	
+	private void setCells() {
+		for(int i = 0; i<iSize;i++) {
+			for(int k = 0; k<iSize; k++) {
+				cells.put(Objects.hash(i,k), new Cell(i,k));
+			}
+		}
+	}
 	
 	private class Cell extends Object {
 		
