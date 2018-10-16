@@ -449,6 +449,23 @@ public class Sudoku extends LatinSquare {
 		return false;
 	}
 	
+	private HashSet<Integer> getAllValidCellValues(int iCol, int iRow){
+		
+		HashSet<Integer> hsCellRange = new HashSet<Integer>();
+		for(int i = 0; i < iSize; i++) {
+			hsCellRange.add(i + 1);
+		}
+		HashSet<Integer> hsUsedValues = new HashSet<Integer>();
+		
+		Collections.addAll(hsUsedValues, Arrays.stream(super.getRow(iRow)).boxed().toArray(Integer[]::new));
+		Collections.addAll(hsUsedValues, Arrays.stream(super.getColumn(iCol)).boxed().toArray(Integer[]::new));
+		Collections.addAll(hsUsedValues, Arrays.stream(this.getRegion(iCol, iRow)).boxed().toArray(Integer[]::new));
+	
+		hsCellRange.removeAll(hsUsedValues);
+		return hsCellRange;
+	}
+	
+	
 	private class Cell extends Object {
 		
 		private int iCol;
@@ -469,17 +486,19 @@ public class Sudoku extends LatinSquare {
 			return iCol;
 		}
 		
-		@Override
 		public int hashCode() {
 			return Objects.hash(iRow, iCol);
 		}
 		
-		@Override
 		public boolean equals(Object o) {
 			if (o == this)
 				return true;
 			
-			else return false;
+			if (!(o instanceof Cell)) {
+				return false;
+			}
+			Cell c = (Cell) o;
+			return iCol == c.iCol && iRow == c.iRow;
 		}
 		
 		public ArrayList<Integer> getLstValidValues(){
