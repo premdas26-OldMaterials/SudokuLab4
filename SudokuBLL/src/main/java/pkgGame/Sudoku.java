@@ -495,7 +495,15 @@ public class Sudoku extends LatinSquare {
 		}
 		
 		public Cell GetNextCell(Sudoku.Cell c){
-			return null;
+			if (iRow != iSize-1) {
+				return cells.get(Objects.hash(iRow+1,iCol));
+			}
+			else if(iRow == iSize-1 && iCol!=iSize-1) {
+				return cells.get(Objects.hash(0,iCol+1));
+			}
+			else {
+				return null;
+			}
 		}
 		
 	}
