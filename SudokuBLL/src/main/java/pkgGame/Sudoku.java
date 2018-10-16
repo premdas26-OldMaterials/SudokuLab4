@@ -49,6 +49,9 @@ public class Sudoku extends LatinSquare {
 	 * @throws Exception
 	 *             if the iSize given doesn't have a whole number square root
 	 */
+	
+	private HashMap<Integer, Cell> cells = new HashMap<Integer, Cell>();
+	
 	public Sudoku(int iSize) throws Exception {
 
 		this.iSize = iSize;
@@ -466,10 +469,12 @@ public class Sudoku extends LatinSquare {
 			return iCol;
 		}
 		
+		@Override
 		public int hashCode() {
 			return Objects.hash(iRow, iCol);
 		}
 		
+		@Override
 		public boolean equals(Object o) {
 			if (o == this)
 				return true;
@@ -489,7 +494,7 @@ public class Sudoku extends LatinSquare {
 			Collections.shuffle(lstValidValues);
 		}
 		
-		public Sudoku.Cell GetNextCell(Sudoku.Cell c){
+		public Cell GetNextCell(Sudoku.Cell c){
 			return null;
 		}
 		
