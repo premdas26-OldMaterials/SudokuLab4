@@ -67,7 +67,8 @@ public class Sudoku extends LatinSquare {
 		super.setLatinSquare(puzzle);
 		FillDiagonalRegions();
 		
-		SetCells();		
+		SetCells();
+		fillRemaining(cells.get(Objects.hash(0,0)));
 	}
 
 	/**
@@ -468,9 +469,12 @@ public class Sudoku extends LatinSquare {
 	}
 	
 	private void SetCells() {
-		for(int i = 0; i<iSize;i++) {
-			for(int k = 0; k<iSize; k++) {
-				cells.put(Objects.hash(i,k), new Cell(i,k));
+		for(int iRow = 0; iRow<iSize;iRow++) {
+			for(int iCol = 0; iCol<iSize; iCol++) {
+				Cell c = new Cell(iRow,iCol);
+				c.setlstValidValues(getAllValidCellValues(iCol,iRow));
+				c.ShuffleValidValues();
+				cells.put(c.hashCode(),c);
 			}
 		}
 	}

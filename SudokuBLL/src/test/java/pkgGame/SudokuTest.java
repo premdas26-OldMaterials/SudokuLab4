@@ -120,7 +120,20 @@ public class SudokuTest {
 		} catch (Exception e) {
 			fail("Test failed to build a Sudoku");
 		}
-
+	}
+	
+	@Test
+	public void SudokuGenerateTest() {
+		Sudoku sd;
+		try {
+			sd = new Sudoku(9);
+			assertTrue(sd.isSudoku());
+			sd.PrintPuzzle();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 
