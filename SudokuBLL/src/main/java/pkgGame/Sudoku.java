@@ -344,7 +344,10 @@ public class Sudoku extends LatinSquare {
 	private void FillDiagonalRegions() {
 
 		for (int i = 0; i < iSize; i = i + iSqrtSize) {
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of https://github.com/premdas26/SudokuLab4
 			SetRegion(getRegionNbr(i, i));
 			ShuffleRegion(getRegionNbr(i, i));
 		}
@@ -528,16 +531,37 @@ public class Sudoku extends LatinSquare {
 			Collections.shuffle(lstValidValues);
 		}
 		
-		public Cell GetNextCell(Sudoku.Cell c){
-			if (iRow != iSize-1) {
-				return cells.get(Objects.hash(iRow+1,iCol));
+		public Cell GetNextCell(Cell c){
+
+			int iCol = c.getiCol() + 1;
+			int iRow = c.getiRow();
+			
+			if(iCol >= iSize && iRow < iSize - 1) {
+				iRow++;
+				iCol = 0;
 			}
-			else if(iRow == iSize-1 && iCol!=iSize-1) {
-				return cells.get(Objects.hash(0,iCol+1));
-			}
-			else {
+			if(iRow >= iSize && iCol >= iSize)
 				return null;
+			
+			if(iRow < iSqrtSize) {
+				if(iCol < iSqrtSize)
+					iCol = iSqrtSize;
+			} else if (iRow < iSize - iSqrtSize) {
+				if(iCol == (int) (iRow / iSqrtSize) * iSqrtSize)
+					iCol += iSqrtSize;
+			} else {
+				if (iCol == iSize - iSqrtSize) {
+					iRow++;
+					iCol = 0;
+					if(iRow >= iSize)
+						return null;
+				}
 			}
+			
+			return c;
+			
+			
+			
 		}
 		
 	}
