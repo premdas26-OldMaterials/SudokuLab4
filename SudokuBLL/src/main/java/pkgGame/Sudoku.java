@@ -344,7 +344,7 @@ public class Sudoku extends LatinSquare {
 	private void FillDiagonalRegions() {
 
 		for (int i = 0; i < iSize; i = i + iSqrtSize) {
-			System.out.println("Filling region: " + getRegionNbr(i, i));
+
 			SetRegion(getRegionNbr(i, i));
 			ShuffleRegion(getRegionNbr(i, i));
 		}
