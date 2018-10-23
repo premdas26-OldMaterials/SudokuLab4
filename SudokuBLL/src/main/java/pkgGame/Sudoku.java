@@ -275,7 +275,9 @@ public class Sudoku extends LatinSquare {
 	 * @return - returns 'true' if the proposed value is valid for the row and column
 	 */
 	public boolean isValidValue(int iRow,int iCol,  int iValue) {
-		
+		if (this.getPuzzle()[iCol][iRow] == iValue) {
+			return true;
+		}
 		if (isValidRowValue(iRow, iValue) 
 				&& isValidColumnValue(iCol, iValue) 
 				&& isValidRegionValue(iCol, iRow, iValue))
