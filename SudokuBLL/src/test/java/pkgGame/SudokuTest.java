@@ -5,11 +5,12 @@ import static org.junit.Assert.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.Test;
 
 public class SudokuTest {
-
+/*
 	private void PrintStars() {
 		for (int i = 0; i < 50; i++)
 			System.out.print("*");
@@ -121,23 +122,26 @@ public class SudokuTest {
 			fail("Test failed to build a Sudoku");
 		}
 	}
-	
+	*/
 	@Test
-	public void SudokuGenerateTest() {
+	public void SudokuGenerateTest1() {
 		Sudoku sd;
 		try {
 			sd = new Sudoku(9);
 			assertTrue(sd.isSudoku());
-			sd.PrintPuzzle();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
-
-
-
-
-
+	@Test
+	public void SudokuGenerateTest2() {
+		Sudoku sd;
+		try {
+			sd = new Sudoku(16);
+			assertTrue(sd.isSudoku());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

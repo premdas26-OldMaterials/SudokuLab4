@@ -1,6 +1,6 @@
 package pkgGame;
 
-
+//must make sure access modifiers are all set, delete setter for cells
 import java.security.SecureRandom;
 import java.util.*;
 
@@ -275,7 +275,7 @@ public class Sudoku extends LatinSquare {
 	 * @return - returns 'true' if the proposed value is valid for the row and column
 	 */
 	public boolean isValidValue(int iRow,int iCol,  int iValue) {
-		if (this.getPuzzle()[iCol][iRow] == iValue) {
+		if (this.getPuzzle()[iRow][iCol] == iValue) {
 			return true;
 		}
 		if (isValidRowValue(iRow, iValue) 
@@ -344,10 +344,6 @@ public class Sudoku extends LatinSquare {
 	private void FillDiagonalRegions() {
 
 		for (int i = 0; i < iSize; i = i + iSqrtSize) {
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/premdas26/SudokuLab4
 			SetRegion(getRegionNbr(i, i));
 			ShuffleRegion(getRegionNbr(i, i));
 		}
@@ -442,15 +438,16 @@ public class Sudoku extends LatinSquare {
 	}
 	
 	private boolean fillRemaining(Cell c) {
-		if (c == null) 
+		if (c == null){ 
 			return true;
-		
+		}
 		for (int num: c.getLstValidValues()) {
 			if (isValidValue(c, num)) {
 				this.getPuzzle()[c.getiRow()][c.getiCol()] = num;
-				
-				if (fillRemaining(c.GetNextCell(c)))
+
+				if (fillRemaining(c.GetNextCell(c))) {
 					return true;
+				}
 				this.getPuzzle()[c.getiRow()][c.getiCol()] = 0;
 			}
 		}
@@ -460,6 +457,10 @@ public class Sudoku extends LatinSquare {
 	private HashSet<Integer> getAllValidCellValues(int iCol, int iRow){
 		
 		HashSet<Integer> hsCellRange = new HashSet<Integer>();
+		if(getPuzzle()[iRow][iCol] != 0) {
+			hsCellRange.add(getPuzzle()[iRow][iCol]);
+			return hsCellRange;
+		}
 		for(int i = 0; i < iSize; i++) {
 			hsCellRange.add(i + 1);
 		}
@@ -484,10 +485,11 @@ public class Sudoku extends LatinSquare {
 		}
 	}
 	
-	private class Cell extends Object {
+	public class Cell extends Object {
 		
 		private int iCol;
 		private int iRow;
+		
 		private ArrayList<Integer> lstValidValues = new ArrayList<Integer>();
 		
 		public Cell(int iRow, int iCol) {
@@ -531,38 +533,16 @@ public class Sudoku extends LatinSquare {
 			Collections.shuffle(lstValidValues);
 		}
 		
-		public Cell GetNextCell(Cell c){
-
-			int iCol = c.getiCol() + 1;
-			int iRow = c.getiRow();
-			
-			if(iCol >= iSize && iRow < iSize - 1) {
-				iRow++;
-				iCol = 0;
+		public Cell GetNextCell(Sudoku.Cell c){
+			if (this.iCol != iSize-1) {
+				return cells.get(Objects.hash(this.iRow,this.iCol+1));
 			}
-			if(iRow >= iSize && iCol >= iSize)
+			else if(this.iRow != iSize-1 && this.iCol==(iSize-1)) {
+				return cells.get(Objects.hash(this.iRow+1,0));
+			}
+			else {
 				return null;
-			
-			if(iRow < iSqrtSize) {
-				if(iCol < iSqrtSize)
-					iCol = iSqrtSize;
-			} else if (iRow < iSize - iSqrtSize) {
-				if(iCol == (int) (iRow / iSqrtSize) * iSqrtSize)
-					iCol += iSqrtSize;
-			} else {
-				if (iCol == iSize - iSqrtSize) {
-					iRow++;
-					iCol = 0;
-					if(iRow >= iSize)
-						return null;
-				}
 			}
-			
-			return c;
-			
-			
-			
 		}
-		
 	}
 }
