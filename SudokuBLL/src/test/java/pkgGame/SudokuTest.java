@@ -129,6 +129,7 @@ public class SudokuTest {
 		try {
 			sd = new Sudoku(9);
 			assertTrue(sd.isSudoku());
+			sd.PrintPuzzle();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
